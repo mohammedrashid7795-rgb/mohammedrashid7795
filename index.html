@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>College Chatbot (single file)</title>
+<style>
+  /* Simple, clear styling so everything is visible */
+  :root{
+    --accent:#0ea5e9;
+    --bg:#0f172a;
+    --card:#0b1220;
+    --bubble-bot:#e6f0ff;
+    --bubble-user:#0ea5e9;
+    --text-light:#eef2f7;
+  }
+  html,body{height:100%;margin:0;font-family:Arial,Helvetica,sans-serif;background:linear-gradient(180deg,var(--bg),#07203a);color:var(--text-light)}
+  .wrap{height:100%;display:flex;align-items:center;justify-content:center;padding:20px;box-sizing:border-box}
+  .card{width:420px;max-width:98%;background:#071221;border-radius:12px;box-shadow:0 10px 30px rgba(0,0,0,.6);overflow:hidden;display:flex;flex-direction:column}
+  .header{background:var(--accent);padding:12px 16px;color:#04263a;font-weight:700;text-align:center}
+  .chat{flex:1;padding:14px;display:flex;flex-direction:column;gap:8px;overflow:auto;background:linear-gradient(180deg,#071421,#071822)}
+  .controls{padding:12px;display:flex;gap:8px;justify-content:center;background:rgba(255,255,255,0.02)}
+  .btn{background:var(--accent);color:#022633;border:none;padding:10px 12px;border-radius:8px;cursor:pointer;font-weight:600}
+  .btn:active{transform:translateY(1px)}
+  .bubble{max-width:78%;padding:10px 12px;border-radius:14px;line-height:1.35;white-space:pre-wrap}
+  .bot{background:var(--bubble-bot);color:#07203a;align-self:flex-start;border-bottom-left-radius:4px}
+  .user{background:var(--bubble-user);color:white;align-self:flex-end;border-bottom-right-radius:4px}
+  .options{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px}
+  .opt-btn{background:#071421;color:var(--text-light);border:1px solid var(--accent);padding:8px 10px;border-radius:8px;cursor:pointer}
+  .small{font-size:12px;color:#9fb7c9;margin-top:6px;text-align:center}
+  /* ensure things are always visible even with odd display scaling */
+  @media (max-width:440px){.card{width:94%}}
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="card" role="application" aria-label="College Chatbot">
+      <div class="header">🎓 College Info ChatBot</div>
+
+      <!-- Chat area (bubbles inserted here) -->
+      <div id="chat" class="chat" aria-live="polite">
+        <!-- static initial message so the UI is never blank -->
+        <div class="bubble bot">Press <b>Start</b> to begin (or choose Guest / Student below).</div>
+      </div>
+
+      <!-- Controls (buttons always visible) -->
+      <div class="controls">
+        <button id="startBtn" class="btn">Start</button>
+        <button id="guestBtn" class="btn">Guest User</button>
+        <button id="studentBtn" class="btn">Student Login</button>
+      </div>
+
+      <div class="small">Interface: click options — no typing required.</div>
+    </div>
+  </div>
+
+<script>
+/* --- Data (your provided students) --- */
+const STUDENTS = [
+  { branch: "Computer Science", name: "Mohammed Rashid", reg: "485CS23036", cgpa: 6, skills: "Web dev (HTML/CSS/JS), Python basics, Projects" },
+  { branch: "Computer Science", name: "Rohith Kumar Naika", reg: "485CS23048", cgpa: 6, skills: "Java, Networking fundamentals, SQL" },
+  { branch: "Mechanical", name: "Shahid Pasha", reg: "485ME23047", cgpa: 9, skills: "CAD/CAM, Manufacturing, Design" },
+  { branch: "Electronics and communication", name: "Dhanush B.S", reg: "485EC23013", cgpa: 7, skills: "Embedded systems, IoT, PCB design" }
+];
+
+/* --- Chat helpers --- */
+const chat = document.getElementById('chat');
+
+function scrollToBottom(){ chat.scrollTop = chat.scrollHeight; }
+
+function appendBubble(text, who='bot', delay=200, typingSpeed=10){
+  // show typing indicator then type text
+  const typing = document.createElement('div');
+  typing.className = 'bubble bot';
+  typing.textContent = '...';
+  chat.appendChild(typing);
+  scrollToBottom();
+
+  setTimeout(()=> {
+    // replace typing with typed message
+    chat.removeChild(typing);
+    const b = document.createElement('div');
+    b.className = 'bubble ' + (who==='bot' ? 'bot' : 'user');
+    // type one char at a time (fast) for nicer effect
+    let i=0;
+    const timer = setInterval(()=>{
+      b.textContent += text.charAt(i) || '';
+      i++;
+      scrollToBottom();
+      if(i>text.length){ clearInterval(timer); }
+    }, typingSpeed);
+    chat.appendChild(b);
+    scrollToBottom();
+  }, delay);
+}
+
+/* quick add (no typing) */
+function appendImmediate(text, who='bot'){
+  const b = document.createElement('div');
+  b.className = 'bubble ' + (who==='bot' ? 'bot' : 'user');
+  b.textContent = text;
+  chat.appendChild(b);
+  scrollToBottom();
+}
+
+/* clear option buttons in chat (if any) */
+function removeOptionBlocks(){
+  const existing = chat.querySelectorAll('.options-wrapper');
+  existing.forEach(e => e.remove());
+}
+
+/* add option buttons inside chat (styled) */
+function addOptions(options){ // options: [{label, onClick}]
+  removeOptionBlocks();
+  const wrapper = document.createElement('div');
+  wrapper.className = 'options-wrapper';
+  const opts = document.createElement('div');
+  opts.className = 'options';
+  options.forEach(opt=>{
+    const btn = document.createElement('button');
+    btn.className = 'opt-btn';
+    btn.textContent = opt.label;
+    btn.onclick = () => { opt.onClick(); removeOptionBlocks(); };
+    opts.appendChild(btn);
+  });
+  wrapper.appendChild(opts);
+  chat.appendChild(wrapper);
+  scrollToBottom();
+}
+
+/* --- Conversation flows --- */
+function startConversation(){
+  appendBubble("Hello! I'm your college assistant. Would you like Guest info or Student login?", 'bot', 300, 8);
+  setTimeout(()=> addOptions([
+    {label: 'Guest User', onClick: guestFlow},
+    {label: 'Student Login', onClick: studentFlow}
+  ]), 800);
+}
+
+/* Guest flow */
+function guestFlow(){
+  appendImmediate('Guest User', 'user');
+  appendBubble("Great — choose which info you want:", 'bot', 300, 8);
+  setTimeout(()=> addOptions([
+    {label: 'Branches Information', onClick: showBranches},
+    {label: 'Fees Information', onClick: showFees},
+    {label: 'Advantages', onClick: showAdvantages},
+    {label: 'Back to Start', onClick: ()=> { appendImmediate('Back to Start','user'); startConversation(); } }
+  ]), 600);
+}
+
+function showBranches(){
+  appendImmediate('Branches Information', 'user');
+  appendBubble("Available branches:\n- Computer Science\n- Civil\n- Electronics and Communication\n- Electrical and Electronics Engineering\n- ADFT\n- Mechanical", 'bot', 300, 6);
+  setTimeout(()=> addOptions([{label:'Back', onClick: guestFlow},{label:'Home', onClick: ()=> { appendImmediate('Home','user'); startConversation(); }}]), 900);
+}
+
+function showFees(){
+  appendImmediate('Fees Information', 'user');
+  appendBubble("Fees structure (per year) - blanks for project:\nComputer Science: ______\nCivil: ______\nElectronics & Communication: ______\nElectrical & Electronics: ______\nADFT: ______\nMechanical: ______", 'bot', 300, 6);
+  setTimeout(()=> addOptions([{label:'Back', onClick: guestFlow},{label:'Home', onClick: ()=> { appendImmediate('Home','user'); startConversation(); }}]), 900);
+}
+
+function showAdvantages(){
+  appendImmediate('Advantages of Joining', 'user');
+  appendBubble("Advantages:\n• Good placement assistance\n• Practical labs & industry projects\n• Internship support\n• Experienced faculty", 'bot', 300, 6);
+  setTimeout(()=> addOptions([{label:'Back', onClick: guestFlow},{label:'Home', onClick: ()=> { appendImmediate('Home','user'); startConversation(); }}]), 900);
+}
+
+/* Student flow — clicking branch selects a student record directly (no typing required) */
+function studentFlow(){
+  appendImmediate('Student Login', 'user');
+  appendBubble("Select your branch to login (we will auto-show the student for demo).", 'bot', 300, 8);
+  setTimeout(()=> addOptions([
+    {label: 'Computer Science', onClick: ()=> verifyStudentByBranch('Computer Science')},
+    {label: 'Mechanical', onClick: ()=> verifyStudentByBranch('Mechanical')},
+    {label: 'Electronics and communication', onClick: ()=> verifyStudentByBranch('Electronics and communication')},
+    {label: 'Electrical and Electronics Engineering', onClick: ()=> verifyStudentByBranch('Electrical and Electronics Engineering')},
+    {label: 'Civil', onClick: ()=> verifyStudentByBranch('Civil')},
+    {label: 'ADFT', onClick: ()=> verifyStudentByBranch('ADFT')},
+    {label: 'Back to Start', onClick: ()=> { appendImmediate('Back','user'); startConversation(); } }
+  ]), 600);
+}
+
+/* For simplicity: if branch matches one of the sample students, show that student's data */
+function verifyStudentByBranch(branch){
+  appendImmediate(branch,'user');
+  appendBubble("Looking for a student record in " + branch + "...", 'bot', 250, 6);
+
+  setTimeout(()=>{
+    const found = STUDENTS.find(s => s.branch.toLowerCase() === branch.toLowerCase());
+    if(!found){
+      appendBubble("No saved student record for this branch (demo mode). You can try another branch.", 'bot', 200, 6);
+      setTimeout(()=> addOptions([{label:'Choose Branch', onClick: studentFlow},{label:'Home', onClick: ()=> { appendImmediate('Home','user'); startConversation(); }}]), 600);
+      return;
+    }
+    appendBubble(✅ Login simulated for demo.\nName: ${found.name}\nRegister: ${found.reg}\nBranch: ${found.branch}\nCGPA: ${found.cgpa}, 'bot', 220, 6);
+    setTimeout(()=> {
+      appendBubble("Recommended next steps & career options:", 'bot', 200, 6);
+      appendBubble(getCareerRecommendation(found), 'bot', 200, 6);
+      setTimeout(()=> addOptions([{label:'Back to Start', onClick: ()=> { appendImmediate('Home','user'); startConversation(); }}]), 350);
+    }, 300);
+  }, 700);
+}
+
+function getCareerRecommendation(s){
+  const cg = Number(s.cgpa);
+  if(cg >=9) return Your CGPA ${cg} is excellent. Consider higher studies (B.Tech/B.E), R&D roles, design engineer, or top-tier internships. Skills: ${s.skills};
+  if(cg >=7) return Good CGPA ${cg}. Aim for internships and industry jobs: Embedded/IoT (EC), Design/Manufacturing (ME), Developer roles (CS). Skills: ${s.skills};
+  return CGPA ${cg}. Focus on building projects, practical skills and internships. Consider web dev, testing, vocational certs or diploma-based placements. Skills: ${s.skills};
+}
+
+/* Start button + Quick safety: if page isn't responding, Start ensures the flow renders */
+document.getElementById('startBtn').addEventListener('click', function(){
+  // clear chat and start
+  chat.innerHTML = '';
+  startConversation();
+});
+document.getElementById('guestBtn').addEventListener('click', function(){
+  chat.innerHTML = '';
+  guestFlow();
+});
+document.getElementById('studentBtn').addEventListener('click', function(){
+  chat.innerHTML = '';
+  studentFlow();
+});
+
+/* show initial UI prompt so page never looks blank */
+appendImmediate("Ready. Click Start, Guest User, or Student Login to begin.", 'bot');
+scrollToBottom();
+</script>
+</body>
+</html>
