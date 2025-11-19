@@ -1,233 +1,421 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>College Chatbot (single file)</title>
-<style>
-  /* Simple, clear styling so everything is visible */
-  :root{
-    --accent:#0ea5e9;
-    --bg:#0f172a;
-    --card:#0b1220;
-    --bubble-bot:#e6f0ff;
-    --bubble-user:#0ea5e9;
-    --text-light:#eef2f7;
-  }
-  html,body{height:100%;margin:0;font-family:Arial,Helvetica,sans-serif;background:linear-gradient(180deg,var(--bg),#07203a);color:var(--text-light)}
-  .wrap{height:100%;display:flex;align-items:center;justify-content:center;padding:20px;box-sizing:border-box}
-  .card{width:420px;max-width:98%;background:#071221;border-radius:12px;box-shadow:0 10px 30px rgba(0,0,0,.6);overflow:hidden;display:flex;flex-direction:column}
-  .header{background:var(--accent);padding:12px 16px;color:#04263a;font-weight:700;text-align:center}
-  .chat{flex:1;padding:14px;display:flex;flex-direction:column;gap:8px;overflow:auto;background:linear-gradient(180deg,#071421,#071822)}
-  .controls{padding:12px;display:flex;gap:8px;justify-content:center;background:rgba(255,255,255,0.02)}
-  .btn{background:var(--accent);color:#022633;border:none;padding:10px 12px;border-radius:8px;cursor:pointer;font-weight:600}
-  .btn:active{transform:translateY(1px)}
-  .bubble{max-width:78%;padding:10px 12px;border-radius:14px;line-height:1.35;white-space:pre-wrap}
-  .bot{background:var(--bubble-bot);color:#07203a;align-self:flex-start;border-bottom-left-radius:4px}
-  .user{background:var(--bubble-user);color:white;align-self:flex-end;border-bottom-right-radius:4px}
-  .options{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px}
-  .opt-btn{background:#071421;color:var(--text-light);border:1px solid var(--accent);padding:8px 10px;border-radius:8px;cursor:pointer}
-  .small{font-size:12px;color:#9fb7c9;margin-top:6px;text-align:center}
-  /* ensure things are always visible even with odd display scaling */
-  @media (max-width:440px){.card{width:94%}}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Career Guidance - Shree Siddarameshwara Polytechnic</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 900px;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+        }
+        
+        header {
+            background: linear-gradient(to right, #1a2a6c, #b21f1f);
+            color: white;
+            padding: 25px;
+            text-align: center;
+        }
+        
+        .college-name {
+            font-size: 1.8rem;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        
+        .project-title {
+            font-size: 1.4rem;
+            opacity: 0.9;
+        }
+        
+        .content {
+            padding: 30px;
+        }
+        
+        .login-container, .profile-container, .recommendation-container {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            margin-bottom: 25px;
+        }
+        
+        h2 {
+            color: #1a2a6c;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #eaeaea;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #333;
+        }
+        
+        input, select {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border 0.3s;
+        }
+        
+        input:focus, select:focus {
+            border-color: #1a2a6c;
+            outline: none;
+            box-shadow: 0 0 0 2px rgba(26, 42, 108, 0.2);
+        }
+        
+        .btn {
+            display: inline-block;
+            background: linear-gradient(to right, #1a2a6c, #b21f1f);
+            color: white;
+            border: none;
+            padding: 14px 25px;
+            font-size: 16px;
+            font-weight: 600;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+            width: 100%;
+            margin-top: 10px;
+        }
+        
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .btn-logout {
+            background: linear-gradient(to right, #b21f1f, #fdbb2d);
+            width: auto;
+            padding: 10px 20px;
+            margin-top: 20px;
+        }
+        
+        .profile-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+        
+        .info-card {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+            border-left: 4px solid #1a2a6c;
+        }
+        
+        .info-label {
+            font-weight: 600;
+            color: #555;
+            font-size: 0.9rem;
+        }
+        
+        .info-value {
+            font-size: 1.2rem;
+            margin-top: 5px;
+            color: #1a2a6c;
+        }
+        
+        .recommendation-content {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+            margin-top: 15px;
+            line-height: 1.6;
+        }
+        
+        .highlight {
+            background: #fffacd;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 15px;
+            border-left: 4px solid #ffd700;
+        }
+        
+        .hidden {
+            display: none;
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 20px;
+            color: #666;
+            font-size: 0.9rem;
+            border-top: 1px solid #eaeaea;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                border-radius: 10px;
+            }
+            
+            .college-name {
+                font-size: 1.5rem;
+            }
+            
+            .project-title {
+                font-size: 1.2rem;
+            }
+            
+            .content {
+                padding: 20px;
+            }
+            
+            .profile-info {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
 </head>
 <body>
-  <div class="wrap">
-    <div class="card" role="application" aria-label="College Chatbot">
-      <div class="header">🎓 College Info ChatBot</div>
-
-      <!-- Chat area (bubbles inserted here) -->
-      <div id="chat" class="chat" aria-live="polite">
-        <!-- static initial message so the UI is never blank -->
-        <div class="bubble bot">Press <b>Start</b> to begin (or choose Guest / Student below).</div>
-      </div>
-
-      <!-- Controls (buttons always visible) -->
-      <div class="controls">
-        <button id="startBtn" class="btn">Start</button>
-        <button id="guestBtn" class="btn">Guest User</button>
-        <button id="studentBtn" class="btn">Student Login</button>
-      </div>
-
-      <div class="small">Interface: click options — no typing required.</div>
+    <div class="container">
+        <header>
+            <div class="college-name">Shree Siddarameshwara Polytechnic</div>
+            <div class="project-title">AI & ML Project - Career Recommendation System</div>
+        </header>
+        
+        <div class="content">
+            <!-- Login Section -->
+            <div id="loginSection" class="login-container">
+                <h2>Student Login</h2>
+                <form id="loginForm">
+                    <div class="form-group">
+                        <label for="studentName">Student Name</label>
+                        <input type="text" id="studentName" placeholder="Enter your full name" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="registerNumber">Register Number</label>
+                        <input type="text" id="registerNumber" placeholder="Enter your register number" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="branch">Branch</label>
+                        <select id="branch" required>
+                            <option value="">Select your branch</option>
+                            <option value="COMPUTER SCIENCE ENGINEERING">Computer Science Engineering</option>
+                            <option value="MECHANICAL ENGINEERING">Mechanical Engineering</option>
+                            <option value="ELECTRONICS AND COMMUNICATION ENGINEERING">Electronics and Communication Engineering</option>
+                            <option value="ELECTRONICS AND ELECTRICAL ENGINEERING">Electronics and Electrical Engineering</option>
+                            <option value="CIVIL ENGINEERING">Civil Engineering</option>
+                            <option value="ADTF">ADTF</option>
+                        </select>
+                    </div>
+                    
+                    <button type="submit" class="btn">Login</button>
+                </form>
+            </div>
+            
+            <!-- Profile Section -->
+            <div id="profileSection" class="profile-container hidden">
+                <h2>Student Profile</h2>
+                <div class="profile-info">
+                    <div class="info-card">
+                        <div class="info-label">Name</div>
+                        <div class="info-value" id="profileName"></div>
+                    </div>
+                    <div class="info-card">
+                        <div class="info-label">Register Number</div>
+                        <div class="info-value" id="profileRegNo"></div>
+                    </div>
+                    <div class="info-card">
+                        <div class="info-label">Branch</div>
+                        <div class="info-value" id="profileBranch"></div>
+                    </div>
+                    <div class="info-card">
+                        <div class="info-label">CGPA</div>
+                        <div class="info-value" id="profileCGPA"></div>
+                    </div>
+                    <div class="info-card">
+                        <div class="info-label">Attendance</div>
+                        <div class="info-value" id="profileAttendance"></div>
+                    </div>
+                    <div class="info-card">
+                        <div class="info-label">Internal Score</div>
+                        <div class="info-value" id="profileInternal"></div>
+                    </div>
+                    <div class="info-card">
+                        <div class="info-label">Practical Performance</div>
+                        <div class="info-value" id="profilePractical"></div>
+                    </div>
+                </div>
+                
+                <button id="getAdviceBtn" class="btn">Get Career Advice</button>
+                <button id="logoutBtn" class="btn btn-logout">Logout</button>
+            </div>
+            
+            <!-- Recommendation Section -->
+            <div id="recommendationSection" class="recommendation-container hidden">
+                <h2>Career Recommendation</h2>
+                <div class="recommendation-content" id="recommendationText"></div>
+                
+                <div class="highlight">
+                    <strong>Suggested Path:</strong> <span id="suggestedPath"></span>
+                </div>
+                
+                <button id="backToProfileBtn" class="btn">Back to Profile</button>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <p>AI & ML Project - Career Recommendation System for Diploma Students</p>
+        </div>
     </div>
-  </div>
 
-<script>
-/* --- Data (your provided students) --- */
-const STUDENTS = [
-  { branch: "Computer Science", name: "Mohammed Rashid", reg: "485CS23036", cgpa: 6, skills: "Web dev (HTML/CSS/JS), Python basics, Projects" },
-  { branch: "Computer Science", name: "Rohith Kumar Naika", reg: "485CS23048", cgpa: 6, skills: "Java, Networking fundamentals, SQL" },
-  { branch: "Mechanical", name: "Shahid Pasha", reg: "485ME23047", cgpa: 9, skills: "CAD/CAM, Manufacturing, Design" },
-  { branch: "Electronics and communication", name: "Dhanush B.S", reg: "485EC23013", cgpa: 7, skills: "Embedded systems, IoT, PCB design" }
-];
+    <script>
+        // Student database with performance metrics
+        const studentDatabase = {
+            "485CS23036": {
+                name: "Mohammed Rashid",
+                branch: "COMPUTER SCIENCE ENGINEERING",
+                cgpa: 9.2,
+                attendance: 92,
+                internalScore: 88,
+                practicalPerformance: 90,
+                performanceCategory: "Excellent"
+            },
+            "485CS23048": {
+                name: "Rohit Kumar Naik",
+                branch: "COMPUTER SCIENCE ENGINEERING",
+                cgpa: 8.5,
+                attendance: 85,
+                internalScore: 82,
+                practicalPerformance: 80,
+                performanceCategory: "Good"
+            },
+            "485ME23047": {
+                name: "Shahid Pasha",
+                branch: "MECHANICAL ENGINEERING",
+                cgpa: 8.8,
+                attendance: 88,
+                internalScore: 85,
+                practicalPerformance: 87,
+                performanceCategory: "Excellent"
+            },
+            "485EC23015": {
+                name: "Chethan Angadi",
+                branch: "ELECTRONICS AND COMMUNICATION ENGINEERING",
+                cgpa: 7.9,
+                attendance: 78,
+                internalScore: 75,
+                practicalPerformance: 72,
+                performanceCategory: "Good"
+            }
+        };
 
-/* --- Chat helpers --- */
-const chat = document.getElementById('chat');
-
-function scrollToBottom(){ chat.scrollTop = chat.scrollHeight; }
-
-function appendBubble(text, who='bot', delay=200, typingSpeed=10){
-  // show typing indicator then type text
-  const typing = document.createElement('div');
-  typing.className = 'bubble bot';
-  typing.textContent = '...';
-  chat.appendChild(typing);
-  scrollToBottom();
-
-  setTimeout(()=> {
-    // replace typing with typed message
-    chat.removeChild(typing);
-    const b = document.createElement('div');
-    b.className = 'bubble ' + (who==='bot' ? 'bot' : 'user');
-    // type one char at a time (fast) for nicer effect
-    let i=0;
-    const timer = setInterval(()=>{
-      b.textContent += text.charAt(i) || '';
-      i++;
-      scrollToBottom();
-      if(i>text.length){ clearInterval(timer); }
-    }, typingSpeed);
-    chat.appendChild(b);
-    scrollToBottom();
-  }, delay);
-}
-
-/* quick add (no typing) */
-function appendImmediate(text, who='bot'){
-  const b = document.createElement('div');
-  b.className = 'bubble ' + (who==='bot' ? 'bot' : 'user');
-  b.textContent = text;
-  chat.appendChild(b);
-  scrollToBottom();
-}
-
-/* clear option buttons in chat (if any) */
-function removeOptionBlocks(){
-  const existing = chat.querySelectorAll('.options-wrapper');
-  existing.forEach(e => e.remove());
-}
-
-/* add option buttons inside chat (styled) */
-function addOptions(options){ // options: [{label, onClick}]
-  removeOptionBlocks();
-  const wrapper = document.createElement('div');
-  wrapper.className = 'options-wrapper';
-  const opts = document.createElement('div');
-  opts.className = 'options';
-  options.forEach(opt=>{
-    const btn = document.createElement('button');
-    btn.className = 'opt-btn';
-    btn.textContent = opt.label;
-    btn.onclick = () => { opt.onClick(); removeOptionBlocks(); };
-    opts.appendChild(btn);
-  });
-  wrapper.appendChild(opts);
-  chat.appendChild(wrapper);
-  scrollToBottom();
-}
-
-/* --- Conversation flows --- */
-function startConversation(){
-  appendBubble("Hello! I'm your college assistant. Would you like Guest info or Student login?", 'bot', 300, 8);
-  setTimeout(()=> addOptions([
-    {label: 'Guest User', onClick: guestFlow},
-    {label: 'Student Login', onClick: studentFlow}
-  ]), 800);
-}
-
-/* Guest flow */
-function guestFlow(){
-  appendImmediate('Guest User', 'user');
-  appendBubble("Great — choose which info you want:", 'bot', 300, 8);
-  setTimeout(()=> addOptions([
-    {label: 'Branches Information', onClick: showBranches},
-    {label: 'Fees Information', onClick: showFees},
-    {label: 'Advantages', onClick: showAdvantages},
-    {label: 'Back to Start', onClick: ()=> { appendImmediate('Back to Start','user'); startConversation(); } }
-  ]), 600);
-}
-
-function showBranches(){
-  appendImmediate('Branches Information', 'user');
-  appendBubble("Available branches:\n- Computer Science\n- Civil\n- Electronics and Communication\n- Electrical and Electronics Engineering\n- ADFT\n- Mechanical", 'bot', 300, 6);
-  setTimeout(()=> addOptions([{label:'Back', onClick: guestFlow},{label:'Home', onClick: ()=> { appendImmediate('Home','user'); startConversation(); }}]), 900);
-}
-
-function showFees(){
-  appendImmediate('Fees Information', 'user');
-  appendBubble("Fees structure (per year) - blanks for project:\nComputer Science: ______\nCivil: ______\nElectronics & Communication: ______\nElectrical & Electronics: ______\nADFT: ______\nMechanical: ______", 'bot', 300, 6);
-  setTimeout(()=> addOptions([{label:'Back', onClick: guestFlow},{label:'Home', onClick: ()=> { appendImmediate('Home','user'); startConversation(); }}]), 900);
-}
-
-function showAdvantages(){
-  appendImmediate('Advantages of Joining', 'user');
-  appendBubble("Advantages:\n• Good placement assistance\n• Practical labs & industry projects\n• Internship support\n• Experienced faculty", 'bot', 300, 6);
-  setTimeout(()=> addOptions([{label:'Back', onClick: guestFlow},{label:'Home', onClick: ()=> { appendImmediate('Home','user'); startConversation(); }}]), 900);
-}
-
-/* Student flow — clicking branch selects a student record directly (no typing required) */
-function studentFlow(){
-  appendImmediate('Student Login', 'user');
-  appendBubble("Select your branch to login (we will auto-show the student for demo).", 'bot', 300, 8);
-  setTimeout(()=> addOptions([
-    {label: 'Computer Science', onClick: ()=> verifyStudentByBranch('Computer Science')},
-    {label: 'Mechanical', onClick: ()=> verifyStudentByBranch('Mechanical')},
-    {label: 'Electronics and communication', onClick: ()=> verifyStudentByBranch('Electronics and communication')},
-    {label: 'Electrical and Electronics Engineering', onClick: ()=> verifyStudentByBranch('Electrical and Electronics Engineering')},
-    {label: 'Civil', onClick: ()=> verifyStudentByBranch('Civil')},
-    {label: 'ADFT', onClick: ()=> verifyStudentByBranch('ADFT')},
-    {label: 'Back to Start', onClick: ()=> { appendImmediate('Back','user'); startConversation(); } }
-  ]), 600);
-}
-
-/* For simplicity: if branch matches one of the sample students, show that student's data */
-function verifyStudentByBranch(branch){
-  appendImmediate(branch,'user');
-  appendBubble("Looking for a student record in " + branch + "...", 'bot', 250, 6);
-
-  setTimeout(()=>{
-    const found = STUDENTS.find(s => s.branch.toLowerCase() === branch.toLowerCase());
-    if(!found){
-      appendBubble("No saved student record for this branch (demo mode). You can try another branch.", 'bot', 200, 6);
-      setTimeout(()=> addOptions([{label:'Choose Branch', onClick: studentFlow},{label:'Home', onClick: ()=> { appendImmediate('Home','user'); startConversation(); }}]), 600);
-      return;
-    }
-    appendBubble(✅ Login simulated for demo.\nName: ${found.name}\nRegister: ${found.reg}\nBranch: ${found.branch}\nCGPA: ${found.cgpa}, 'bot', 220, 6);
-    setTimeout(()=> {
-      appendBubble("Recommended next steps & career options:", 'bot', 200, 6);
-      appendBubble(getCareerRecommendation(found), 'bot', 200, 6);
-      setTimeout(()=> addOptions([{label:'Back to Start', onClick: ()=> { appendImmediate('Home','user'); startConversation(); }}]), 350);
-    }, 300);
-  }, 700);
-}
-
-function getCareerRecommendation(s){
-  const cg = Number(s.cgpa);
-  if(cg >=9) return Your CGPA ${cg} is excellent. Consider higher studies (B.Tech/B.E), R&D roles, design engineer, or top-tier internships. Skills: ${s.skills};
-  if(cg >=7) return Good CGPA ${cg}. Aim for internships and industry jobs: Embedded/IoT (EC), Design/Manufacturing (ME), Developer roles (CS). Skills: ${s.skills};
-  return CGPA ${cg}. Focus on building projects, practical skills and internships. Consider web dev, testing, vocational certs or diploma-based placements. Skills: ${s.skills};
-}
-
-/* Start button + Quick safety: if page isn't responding, Start ensures the flow renders */
-document.getElementById('startBtn').addEventListener('click', function(){
-  // clear chat and start
-  chat.innerHTML = '';
-  startConversation();
-});
-document.getElementById('guestBtn').addEventListener('click', function(){
-  chat.innerHTML = '';
-  guestFlow();
-});
-document.getElementById('studentBtn').addEventListener('click', function(){
-  chat.innerHTML = '';
-  studentFlow();
-});
-
-/* show initial UI prompt so page never looks blank */
-appendImmediate("Ready. Click Start, Guest User, or Student Login to begin.", 'bot');
-scrollToBottom();
-</script>
-</body>
-</html>
+        // Career recommendations based on performance
+        const careerRecommendations = {
+            "COMPUTER SCIENCE ENGINEERING": {
+                excellent: {
+                    path: "Higher Studies & Top Job Placements",
+                    details: "With your outstanding academic record, we recommend pursuing higher studies like direct entry to engineering degrees or specialized diploma courses. You are also well-positioned for top job placements in IT companies as a software developer, web developer, or IT support specialist. Consider internships at tech startups to gain practical experience."
+                },
+                good: {
+                    path: "Job Placements with Skill Enhancement",
+                    details: "Your strong academic performance makes you suitable for job placements in IT industry. We recommend applying for positions like junior developer, IT technician, or network assistant. Simultaneously, consider enhancing your skills with certifications in Python, Java, or web development. You could also explore apprenticeship programs in software companies."
+                },
+                average: {
+                    path: "Skill Development & Entry-Level Jobs",
+                    details: "We recommend focusing on skill development through short-term courses and certifications. Consider building a project portfolio to showcase your abilities. Apply for entry-level positions like IT assistant, technical support, or junior web developer. Internships in local IT firms can provide valuable experience and references."
+                }
+            },
+            "MECHANICAL ENGINEERING": {
+                excellent: {
+                    path: "Higher Studies & Technical Roles",
+                    details: "Your excellent academic record positions you well for advanced diploma courses or direct entry to engineering programs. You are also qualified for technical roles in manufacturing, automotive, or production industries. Consider apprenticeships in industrial plants or applying for technician positions in mechanical workshops."
+                },
+                good: {
+                    path: "Industry Placements & Skill Development",
+                    details: "With your solid performance, you can explore job opportunities in manufacturing, automotive repair, or industrial maintenance. Consider roles like mechanical technician, CAD operator, or quality control assistant. Simultaneously, pursue certifications in AutoCAD, CNC programming, or welding to enhance your employability."
+                },
+                average: {
+                    path: "Practical Training & Entry-Level Jobs",
+                    details: "Focus on gaining practical experience through industrial training or apprenticeships. Apply for entry-level positions in workshops, manufacturing units, or maintenance departments. Consider short-term courses in specific mechanical skills like machining, fitting, or mechanical drafting to strengthen your profile."
+                }
+            },
+            "ELECTRONICS AND COMMUNICATION ENGINEERING": {
+                excellent: {
+                    path: "Advanced Studies & Technical Roles",
+                    details: "Your outstanding performance makes you an ideal candidate for advanced diploma courses or direct engineering entry. You can pursue roles in electronics manufacturing, telecommunications, or consumer electronics. Consider positions like electronics technician, network support staff, or PCB design assistant in relevant industries."
+                },
+                good: {
+                    path: "Industry Placements & Skill Enhancement",
+                    details: "Your strong academic background opens opportunities in electronics assembly, repair services, or telecommunications. Consider roles like electronics technician, field service engineer, or telecommunications operator. Pursue certifications in embedded systems, IoT, or telecommunications to enhance your career prospects."
+                },
+                average: {
+                    path: "Practical Experience & Entry-Level Positions",
+                    details: "Focus on gaining hands-on experience through internships in electronics repair shops or manufacturing units. Apply for entry-level positions like electronics assembler, repair technician, or technical support. Consider short-term courses in specific areas like mobile repairing, circuit design, or electronic instrumentation."
+                }
+            },
+            "ELECTRONICS AND ELECTRICAL ENGINEERING": {
+                excellent: {
+                    path: "Higher Studies & Technical Roles",
+                    details: "With your excellent academic record, we recommend pursuing advanced diploma courses or direct engineering entry. You are qualified for technical roles in power distribution, electrical maintenance, or electrical equipment manufacturing. Consider positions like electrical technician, maintenance electrician, or control panel operator."
+                },
+                good: {
+                    path: "Industry Placements & Skill Development",
+                    details: "Your strong performance qualifies you for positions in electrical contracting, power distribution, or industrial maintenance. Consider roles like electrical fitter, wiring technician, or maintenance assistant. Pursue certifications in electrical safety, PLC programming, or solar panel installation to enhance your employability."
+                },
+                average: {
+                    path: "Practical Training & Entry-Level Jobs",
+                    details: "Focus on gaining practical experience through apprenticeships with electricians or electrical contractors. Apply for entry-level positions in electrical shops, maintenance departments, or wiring installations. Consider short-term courses in house wiring, electrical repairs, or electrical drafting to strengthen your skills."
+                }
+            },
+            "CIVIL ENGINEERING": {
+                excellent: {
+                    path: "Higher Studies & Technical Roles",
+                    details: "Your outstanding academic performance makes you suitable for advanced diploma courses or direct engineering entry. You can pursue roles in construction companies, infrastructure projects, or government departments. Consider positions like site supervisor, junior engineer, or CAD operator in construction firms."
+                },
+                good: {
+                    path: "Industry Placements & Skill Enhancement",
+                    details: "With your solid academic record, you can explore opportunities in construction, surveying, or building maintenance. Consider roles like site assistant, surveying technician, or quality checker. Pursue certifications in AutoCAD, building estimation, or construction safety to enhance your career prospects."
+                },
+                average: {
+                    path: "Practical Experience & Entry-Level Positions",
+                    details: "Focus on gaining hands-on experience through site training or apprenticeships with contractors. Apply for entry-level positions like construction helper, assistant surveyor, or maintenance worker. Consider short-term courses in specific skills like masonry, plumbing, or electrical fitting for construction sites."
+                }
+            },
+            "ADTF": {
+                excellent: {
+                    path: "Advanced Design Courses & Creative Roles",
+                    details: "Your excellent performance indicates strong potential in design fields. Consider advanced diploma courses in specialized design domains or direct entry to design degrees. You can pursue roles in design studios, advertising agencies, or product design companies as a junior designer or design assistant."
+                },
+                good: {
+                    path: "Design Industry Placements & Skill Development",
+                    details: "With your solid performance, you can explore opportunities in design firms, printing presses, or advertising agencies. Consider roles like graphic designer assistant, layout artist, or visualizer. Build a strong portfolio and pursue certifications in design software like Adobe Creative Suite to enhance your employability."
+                },
+                average: {
+                    path: "Practical Training & Entry-Level Design Jobs",
+                    details: "Focus on building a strong portfolio through freelance projects or internships. Apply for entry-level positions in printing companies, design studios, or advertising agencies. Conside
