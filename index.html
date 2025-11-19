@@ -9,11 +9,11 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Arial', sans-serif;
         }
         
         body {
-            background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d);
+            background: linear-gradient(45deg, #1e3c72, #2a5298);
             min-height: 100vh;
             display: flex;
             justify-content: center;
@@ -24,27 +24,27 @@
         .container {
             width: 100%;
             max-width: 900px;
-            background: rgba(255, 255, 255, 0.95);
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
             overflow: hidden;
         }
         
-        header {
-            background: linear-gradient(to right, #1a2a6c, #b21f1f);
+        .header {
+            background: linear-gradient(135deg, #1a2a6c, #b21f1f);
             color: white;
-            padding: 25px;
+            padding: 30px;
             text-align: center;
         }
         
         .college-name {
-            font-size: 1.8rem;
+            font-size: 24px;
             font-weight: bold;
             margin-bottom: 5px;
         }
         
         .project-title {
-            font-size: 1.4rem;
+            font-size: 18px;
             opacity: 0.9;
         }
         
@@ -52,19 +52,19 @@
             padding: 30px;
         }
         
-        .login-container, .profile-container, .recommendation-container {
+        .card {
             background: #f8f9fa;
             padding: 25px;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-            margin-bottom: 25px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
         }
         
-        h2 {
+        .card-title {
             color: #1a2a6c;
             margin-bottom: 20px;
-            padding-bottom: 10px;
-            border-bottom: 2px solid #eaeaea;
+            text-align: center;
+            font-size: 22px;
         }
         
         .form-group {
@@ -74,33 +74,32 @@
         label {
             display: block;
             margin-bottom: 8px;
-            font-weight: 600;
+            font-weight: bold;
             color: #333;
         }
         
         input, select {
             width: 100%;
             padding: 12px 15px;
-            border: 1px solid #ddd;
+            border: 2px solid #ddd;
             border-radius: 8px;
             font-size: 16px;
-            transition: border 0.3s;
+            transition: all 0.3s;
         }
         
         input:focus, select:focus {
             border-color: #1a2a6c;
             outline: none;
-            box-shadow: 0 0 0 2px rgba(26, 42, 108, 0.2);
+            box-shadow: 0 0 0 3px rgba(26, 42, 108, 0.2);
         }
         
         .btn {
-            display: inline-block;
             background: linear-gradient(to right, #1a2a6c, #b21f1f);
             color: white;
             border: none;
-            padding: 14px 25px;
+            padding: 15px;
             font-size: 16px;
-            font-weight: 600;
+            font-weight: bold;
             border-radius: 8px;
             cursor: pointer;
             transition: all 0.3s;
@@ -109,120 +108,168 @@
         }
         
         .btn:hover {
-            transform: translateY(-3px);
+            transform: translateY(-2px);
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
         }
         
-        .btn-logout {
-            background: linear-gradient(to right, #b21f1f, #fdbb2d);
-            width: auto;
-            padding: 10px 20px;
+        .btn-secondary {
+            background: linear-gradient(to right, #6c757d, #495057);
+        }
+        
+        .profile-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
             margin-top: 20px;
         }
         
-        .profile-info {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-            gap: 15px;
-            margin-top: 15px;
-        }
-        
-        .info-card {
+        .profile-item {
             background: white;
             padding: 15px;
-            border-radius: 8px;
-            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+            border-radius: 10px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
             border-left: 4px solid #1a2a6c;
         }
         
-        .info-label {
-            font-weight: 600;
+        .profile-label {
+            font-weight: bold;
             color: #555;
-            font-size: 0.9rem;
+            font-size: 14px;
         }
         
-        .info-value {
-            font-size: 1.2rem;
+        .profile-value {
+            font-size: 18px;
             margin-top: 5px;
             color: #1a2a6c;
         }
         
-        .recommendation-content {
+        .recommendation-section {
             background: white;
             padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
-            margin-top: 15px;
-            line-height: 1.6;
+            border-radius: 10px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
         }
         
-        .highlight {
-            background: #fffacd;
-            padding: 15px;
-            border-radius: 8px;
-            margin-top: 15px;
-            border-left: 4px solid #ffd700;
+        .category-box {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            border-left: 4px solid #1a2a6c;
+        }
+        
+        .category-title {
+            color: #1a2a6c;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .category-title i {
+            margin-right: 10px;
+            font-size: 20px;
+        }
+        
+        .option-list {
+            list-style: none;
+            padding-left: 0;
+        }
+        
+        .option-list li {
+            padding: 8px 0;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            align-items: center;
+        }
+        
+        .option-list li:before {
+            content: "•";
+            color: #b21f1f;
+            font-weight: bold;
+            margin-right: 10px;
+            font-size: 18px;
+        }
+        
+        .highlight-box {
+            background: #fff9c4;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+            border-left: 4px solid #ffd600;
         }
         
         .hidden {
             display: none;
         }
         
+        .error-message {
+            background: #ffebee;
+            color: #c62828;
+            padding: 12px;
+            border-radius: 8px;
+            margin-top: 15px;
+            text-align: center;
+            font-weight: bold;
+            border: 2px solid #ffcdd2;
+        }
+        
+        .button-group {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        
+        .button-group .btn {
+            flex: 1;
+        }
+        
         .footer {
             text-align: center;
             padding: 20px;
             color: #666;
-            font-size: 0.9rem;
-            border-top: 1px solid #eaeaea;
+            border-top: 1px solid #eee;
         }
         
-        @media (max-width: 768px) {
-            .container {
-                border-radius: 10px;
-            }
-            
-            .college-name {
-                font-size: 1.5rem;
-            }
-            
-            .project-title {
-                font-size: 1.2rem;
-            }
-            
-            .content {
-                padding: 20px;
-            }
-            
-            .profile-info {
-                grid-template-columns: 1fr;
-            }
+        .performance-badge {
+            display: inline-block;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-weight: bold;
+            margin-left: 10px;
         }
+        
+        .excellent { background: #4caf50; color: white; }
+        .good { background: #ff9800; color: white; }
+        .average { background: #f44336; color: white; }
     </style>
 </head>
 <body>
     <div class="container">
-        <header>
+        <div class="header">
             <div class="college-name">Shree Siddarameshwara Polytechnic</div>
-            <div class="project-title">AI & ML Project - Career Recommendation System</div>
-        </header>
+            <div class="project-title">AI Career Recommendation System</div>
+        </div>
         
         <div class="content">
             <!-- Login Section -->
-            <div id="loginSection" class="login-container">
-                <h2>Student Login</h2>
+            <div id="loginSection" class="card">
+                <div class="card-title">Student Login</div>
                 <form id="loginForm">
                     <div class="form-group">
-                        <label for="studentName">Student Name</label>
+                        <label>Student Name</label>
                         <input type="text" id="studentName" placeholder="Enter your full name" required>
                     </div>
                     
                     <div class="form-group">
-                        <label for="registerNumber">Register Number</label>
+                        <label>Register Number</label>
                         <input type="text" id="registerNumber" placeholder="Enter your register number" required>
                     </div>
                     
                     <div class="form-group">
-                        <label for="branch">Branch</label>
+                        <label>Branch</label>
                         <select id="branch" required>
                             <option value="">Select your branch</option>
                             <option value="COMPUTER SCIENCE ENGINEERING">Computer Science Engineering</option>
@@ -234,77 +281,108 @@
                         </select>
                     </div>
                     
-                    <button type="submit" class="btn">Login</button>
+                    <button type="submit" class="btn">Login to View Profile</button>
                 </form>
+                <div id="errorMessage" class="error-message hidden"></div>
             </div>
             
             <!-- Profile Section -->
-            <div id="profileSection" class="profile-container hidden">
-                <h2>Student Profile</h2>
-                <div class="profile-info">
-                    <div class="info-card">
-                        <div class="info-label">Name</div>
-                        <div class="info-value" id="profileName"></div>
+            <div id="profileSection" class="card hidden">
+                <div class="card-title">Student Profile</div>
+                <div class="profile-grid">
+                    <div class="profile-item">
+                        <div class="profile-label">Name</div>
+                        <div class="profile-value" id="profileName">-</div>
                     </div>
-                    <div class="info-card">
-                        <div class="info-label">Register Number</div>
-                        <div class="info-value" id="profileRegNo"></div>
+                    <div class="profile-item">
+                        <div class="profile-label">Register Number</div>
+                        <div class="profile-value" id="profileRegNo">-</div>
                     </div>
-                    <div class="info-card">
-                        <div class="info-label">Branch</div>
-                        <div class="info-value" id="profileBranch"></div>
+                    <div class="profile-item">
+                        <div class="profile-label">Branch</div>
+                        <div class="profile-value" id="profileBranch">-</div>
                     </div>
-                    <div class="info-card">
-                        <div class="info-label">CGPA</div>
-                        <div class="info-value" id="profileCGPA"></div>
+                    <div class="profile-item">
+                        <div class="profile-label">CGPA</div>
+                        <div class="profile-value" id="profileCGPA">-</div>
                     </div>
-                    <div class="info-card">
-                        <div class="info-label">Attendance</div>
-                        <div class="info-value" id="profileAttendance"></div>
+                    <div class="profile-item">
+                        <div class="profile-label">Attendance</div>
+                        <div class="profile-value" id="profileAttendance">-</div>
                     </div>
-                    <div class="info-card">
-                        <div class="info-label">Internal Score</div>
-                        <div class="info-value" id="profileInternal"></div>
+                    <div class="profile-item">
+                        <div class="profile-label">Internal Score</div>
+                        <div class="profile-value" id="profileInternal">-</div>
                     </div>
-                    <div class="info-card">
-                        <div class="info-label">Practical Performance</div>
-                        <div class="info-value" id="profilePractical"></div>
+                    <div class="profile-item">
+                        <div class="profile-label">Practical Performance</div>
+                        <div class="profile-value" id="profilePractical">-</div>
+                    </div>
+                    <div class="profile-item">
+                        <div class="profile-label">Overall Performance</div>
+                        <div class="profile-value" id="profileOverall">-</div>
                     </div>
                 </div>
                 
-                <button id="getAdviceBtn" class="btn">Get Career Advice</button>
-                <button id="logoutBtn" class="btn btn-logout">Logout</button>
+                <div class="button-group">
+                    <button id="getAdviceBtn" class="btn">Get Career Advice</button>
+                    <button id="logoutBtn" class="btn btn-secondary">Logout</button>
+                </div>
             </div>
             
             <!-- Recommendation Section -->
-            <div id="recommendationSection" class="recommendation-container hidden">
-                <h2>Career Recommendation</h2>
-                <div class="recommendation-content" id="recommendationText"></div>
+            <div id="recommendationSection" class="card hidden">
+                <div class="card-title">Career Recommendation</div>
                 
-                <div class="highlight">
-                    <strong>Suggested Path:</strong> <span id="suggestedPath"></span>
+                <div class="recommendation-section">
+                    <div class="category-box">
+                        <div class="category-title">📚 Higher Studies Options</div>
+                        <ul class="option-list" id="higherStudiesList"></ul>
+                    </div>
+                    
+                    <div class="category-box">
+                        <div class="category-title">🎓 Short Term Courses</div>
+                        <ul class="option-list" id="coursesList"></ul>
+                    </div>
+                    
+                    <div class="category-box">
+                        <div class="category-title">💼 Internship Opportunities</div>
+                        <ul class="option-list" id="internshipsList"></ul>
+                    </div>
+                    
+                    <div class="category-box">
+                        <div class="category-title">💼 Job Opportunities</div>
+                        <ul class="option-list" id="jobsList"></ul>
+                    </div>
                 </div>
                 
-                <button id="backToProfileBtn" class="btn">Back to Profile</button>
+                <div class="highlight-box">
+                    <strong>🎯 Recommended Career Path:</strong> 
+                    <span id="suggestedPath">-</span>
+                </div>
+                
+                <div class="button-group">
+                    <button id="backToProfileBtn" class="btn">Back to Profile</button>
+                    <button id="newLoginBtn" class="btn btn-secondary">New Login</button>
+                </div>
             </div>
         </div>
         
         <div class="footer">
-            <p>AI & ML Project - Career Recommendation System for Diploma Students</p>
+            <p>AI & ML Project - Career Guidance System for Diploma Students</p>
         </div>
     </div>
 
     <script>
-        // Student database with performance metrics
+        // Enhanced Student database - Mohammed Rashid with LOW performance
         const studentDatabase = {
             "485CS23036": {
                 name: "Mohammed Rashid",
                 branch: "COMPUTER SCIENCE ENGINEERING",
-                cgpa: 9.2,
-                attendance: 92,
-                internalScore: 88,
-                practicalPerformance: 90,
-                performanceCategory: "Excellent"
+                cgpa: 6.2,  // Changed from 9.2 to 6.2
+                attendance: 65,  // Changed from 92 to 65
+                internalScore: 58,  // Changed from 88 to 58
+                practicalPerformance: 62  // Changed from 90 to 62
             },
             "485CS23048": {
                 name: "Rohit Kumar Naik",
@@ -312,8 +390,7 @@
                 cgpa: 8.5,
                 attendance: 85,
                 internalScore: 82,
-                practicalPerformance: 80,
-                performanceCategory: "Good"
+                practicalPerformance: 80
             },
             "485ME23047": {
                 name: "Shahid Pasha",
@@ -321,8 +398,7 @@
                 cgpa: 8.8,
                 attendance: 88,
                 internalScore: 85,
-                practicalPerformance: 87,
-                performanceCategory: "Excellent"
+                practicalPerformance: 87
             },
             "485EC23015": {
                 name: "Chethan Angadi",
@@ -330,92 +406,746 @@
                 cgpa: 7.9,
                 attendance: 78,
                 internalScore: 75,
-                practicalPerformance: 72,
-                performanceCategory: "Good"
+                practicalPerformance: 72
+            },
+            "485EE23025": {
+                name: "Rahul Sharma",
+                branch: "ELECTRONICS AND ELECTRICAL ENGINEERING",
+                cgpa: 8.1,
+                attendance: 82,
+                internalScore: 78,
+                practicalPerformance: 80
+            },
+            "485CE23035": {
+                name: "Priya Patel",
+                branch: "CIVIL ENGINEERING",
+                cgpa: 8.9,
+                attendance: 90,
+                internalScore: 86,
+                practicalPerformance: 88
+            },
+            "485AD23045": {
+                name: "Ananya Singh",
+                branch: "ADTF",
+                cgpa: 8.3,
+                attendance: 84,
+                internalScore: 80,
+                practicalPerformance: 82
             }
         };
 
-        // Career recommendations based on performance
+        // Enhanced Career recommendations for all branches with LOW performance
         const careerRecommendations = {
             "COMPUTER SCIENCE ENGINEERING": {
-                excellent: {
-                    path: "Higher Studies & Top Job Placements",
-                    details: "With your outstanding academic record, we recommend pursuing higher studies like direct entry to engineering degrees or specialized diploma courses. You are also well-positioned for top job placements in IT companies as a software developer, web developer, or IT support specialist. Consider internships at tech startups to gain practical experience."
+                low: {
+                    path: "Skill Development + Entry Level IT Jobs",
+                    higherStudies: [
+                        "Certificate in Computer Basics",
+                        "Diploma in Information Technology",
+                        "Short-term programming courses",
+                        "Open university degrees"
+                    ],
+                    courses: [
+                        "Basic Computer Course",
+                        "MS Office Certification",
+                        "Tally Course",
+                        "Data Entry Operations",
+                        "Digital Marketing Basics",
+                        "Web Design Fundamentals"
+                    ],
+                    internships: [
+                        "Data Entry Intern",
+                        "Computer Operator Trainee",
+                        "IT Support Assistant",
+                        "Desktop Support Intern",
+                        "Technical Support Trainee"
+                    ],
+                    jobs: [
+                        "Data Entry Operator - ₹1.5-2.5 LPA",
+                        "Computer Operator - ₹1.8-3 LPA",
+                        "IT Support Staff - ₹2-3 LPA",
+                        "Back Office Assistant - ₹1.5-2.5 LPA",
+                        "Technical Support - ₹2-3.5 LPA"
+                    ]
                 },
                 good: {
-                    path: "Job Placements with Skill Enhancement",
-                    details: "Your strong academic performance makes you suitable for job placements in IT industry. We recommend applying for positions like junior developer, IT technician, or network assistant. Simultaneously, consider enhancing your skills with certifications in Python, Java, or web development. You could also explore apprenticeship programs in software companies."
+                    path: "IT Jobs + Skill Enhancement",
+                    higherStudies: [
+                        "Lateral entry to B.Tech programs",
+                        "Bachelor of Computer Applications (BCA)",
+                        "Diploma in Advanced Programming",
+                        "B.Sc in Computer Science"
+                    ],
+                    courses: [
+                        "Java Programming Certification",
+                        "Frontend Development Course",
+                        "Database Management Course",
+                        "Mobile App Development",
+                        "UI/UX Design Basics",
+                        "IT Support Fundamentals"
+                    ],
+                    internships: [
+                        "Junior Developer Intern",
+                        "IT Support Intern",
+                        "QA Testing Intern",
+                        "Technical Support Intern",
+                        "Database Management Intern"
+                    ],
+                    jobs: [
+                        "Junior Software Developer - ₹2.5-4 LPA",
+                        "IT Technician - ₹2-3.5 LPA",
+                        "Technical Support Engineer - ₹2.5-4 LPA",
+                        "Web Developer - ₹2.5-4.5 LPA",
+                        "System Support Specialist - ₹2-3.5 LPA"
+                    ]
                 },
-                average: {
-                    path: "Skill Development & Entry-Level Jobs",
-                    details: "We recommend focusing on skill development through short-term courses and certifications. Consider building a project portfolio to showcase your abilities. Apply for entry-level positions like IT assistant, technical support, or junior web developer. Internships in local IT firms can provide valuable experience and references."
+                excellent: {
+                    path: "Higher Studies + Top IT Jobs",
+                    higherStudies: [
+                        "Direct entry to B.Tech/B.E Computer Science",
+                        "B.Tech in Artificial Intelligence & Machine Learning",
+                        "B.Tech in Data Science",
+                        "B.Tech in Cyber Security",
+                        "Advanced Diploma in Cloud Computing",
+                        "Bachelor's in Computer Applications (BCA)"
+                    ],
+                    courses: [
+                        "Advanced Python Programming Certification",
+                        "Full Stack Web Development Course",
+                        "AWS/Cloud Practitioner Certification",
+                        "Data Analytics with Python",
+                        "Machine Learning Fundamentals",
+                        "Cybersecurity Essentials Course"
+                    ],
+                    internships: [
+                        "Software Development Intern at IT companies",
+                        "Web Development Intern at startups",
+                        "Data Science Intern",
+                        "AI/ML Research Intern",
+                        "Cybersecurity Trainee",
+                        "Cloud Computing Intern"
+                    ],
+                    jobs: [
+                        "Software Developer - ₹4-8 LPA",
+                        "Web Developer - ₹3-6 LPA",
+                        "System Administrator - ₹3-5 LPA",
+                        "IT Support Specialist - ₹3-5 LPA",
+                        "Data Analyst - ₹4-7 LPA",
+                        "Network Engineer - ₹3-6 LPA"
+                    ]
                 }
             },
             "MECHANICAL ENGINEERING": {
-                excellent: {
-                    path: "Higher Studies & Technical Roles",
-                    details: "Your excellent academic record positions you well for advanced diploma courses or direct entry to engineering programs. You are also qualified for technical roles in manufacturing, automotive, or production industries. Consider apprenticeships in industrial plants or applying for technician positions in mechanical workshops."
+                low: {
+                    path: "Practical Training + Workshop Jobs",
+                    higherStudies: [
+                        "ITI Mechanical Courses",
+                        "Certificate in Welding Technology",
+                        "Diploma in Fitting",
+                        "Basic AutoCAD Course"
+                    ],
+                    courses: [
+                        "Basic Workshop Practice",
+                        "Machine Operation Training",
+                        "Safety Training Course",
+                        "Tool Maintenance",
+                        "Industrial Measurement"
+                    ],
+                    internships: [
+                        "Workshop Helper",
+                        "Machine Operator Trainee",
+                        "Assembly Line Worker",
+                        "Maintenance Assistant",
+                        "Quality Checker"
+                    ],
+                    jobs: [
+                        "Workshop Helper - ₹1.5-2.5 LPA",
+                        "Machine Operator - ₹2-3 LPA",
+                        "Assembly Worker - ₹1.8-2.8 LPA",
+                        "Maintenance Helper - ₹2-3 LPA",
+                        "Production Assistant - ₹1.8-2.8 LPA"
+                    ]
                 },
                 good: {
-                    path: "Industry Placements & Skill Development",
-                    details: "With your solid performance, you can explore job opportunities in manufacturing, automotive repair, or industrial maintenance. Consider roles like mechanical technician, CAD operator, or quality control assistant. Simultaneously, pursue certifications in AutoCAD, CNC programming, or welding to enhance your employability."
+                    path: "Industry Jobs + Technical Certifications",
+                    higherStudies: [
+                        "Lateral entry to B.Tech Mechanical",
+                        "Diploma in Industrial Engineering",
+                        "Advanced Welding Technology",
+                        "Tool & Die Making Course"
+                    ],
+                    courses: [
+                        "Basic AutoCAD Certification",
+                        "Welding Technology Course",
+                        "Machine Tool Operation",
+                        "Industrial Safety Course",
+                        "Basic Robotics Course"
+                    ],
+                    internships: [
+                        "Workshop Intern",
+                        "Machine Operator Trainee",
+                        "Assembly Line Intern",
+                        "Maintenance Trainee",
+                        "Quality Inspection Intern"
+                    ],
+                    jobs: [
+                        "Mechanical Fitter - ₹2-3.5 LPA",
+                        "CNC Operator - ₹2.5-4 LPA",
+                        "Quality Inspector - ₹2-3 LPA",
+                        "Maintenance Technician - ₹2.5-4 LPA",
+                        "Production Assistant - ₹2-3 LPA"
+                    ]
                 },
-                average: {
-                    path: "Practical Training & Entry-Level Jobs",
-                    details: "Focus on gaining practical experience through industrial training or apprenticeships. Apply for entry-level positions in workshops, manufacturing units, or maintenance departments. Consider short-term courses in specific mechanical skills like machining, fitting, or mechanical drafting to strengthen your profile."
+                excellent: {
+                    path: "Higher Studies + Technical Specialist Roles",
+                    higherStudies: [
+                        "B.Tech in Mechanical Engineering",
+                        "B.Tech in Automobile Engineering",
+                        "B.Tech in Production Engineering",
+                        "Diploma in Advanced Manufacturing",
+                        "B.Tech in Robotics & Automation"
+                    ],
+                    courses: [
+                        "Advanced AutoCAD Certification",
+                        "CNC Programming Course",
+                        "Robotics & Automation Course",
+                        "3D Modeling & Printing",
+                        "Industrial Automation Course",
+                        "Quality Control Certification"
+                    ],
+                    internships: [
+                        "CAD Design Intern",
+                        "Production Engineering Intern",
+                        "Quality Control Intern",
+                        "Maintenance Engineering Intern",
+                        "Automobile Engineering Intern"
+                    ],
+                    jobs: [
+                        "Mechanical Design Engineer - ₹3-6 LPA",
+                        "Production Supervisor - ₹3-5 LPA",
+                        "Quality Control Engineer - ₹3-5 LPA",
+                        "Maintenance Engineer - ₹3-5 LPA",
+                        "CAD Technician - ₹2.5-4 LPA"
+                    ]
                 }
             },
             "ELECTRONICS AND COMMUNICATION ENGINEERING": {
-                excellent: {
-                    path: "Advanced Studies & Technical Roles",
-                    details: "Your outstanding performance makes you an ideal candidate for advanced diploma courses or direct engineering entry. You can pursue roles in electronics manufacturing, telecommunications, or consumer electronics. Consider positions like electronics technician, network support staff, or PCB design assistant in relevant industries."
+                low: {
+                    path: "Basic Electronics + Repair Jobs",
+                    higherStudies: [
+                        "Certificate in Electronics Repair",
+                        "Diploma in Consumer Electronics",
+                        "Basic Circuit Design Course",
+                        "ITI Electronics"
+                    ],
+                    courses: [
+                        "Mobile Repairing Course",
+                        "Basic Electronics Course",
+                        "Circuit Testing Fundamentals",
+                        "Soldering Techniques",
+                        "Electronic Components Knowledge"
+                    ],
+                    internships: [
+                        "Electronics Repair Shop Intern",
+                        "Electronics Assembler",
+                        "Testing Assistant",
+                        "Service Technician Trainee",
+                        "Maintenance Helper"
+                    ],
+                    jobs: [
+                        "Electronics Repair Technician - ₹1.8-3 LPA",
+                        "Assembly Worker - ₹1.5-2.5 LPA",
+                        "Service Helper - ₹1.5-2.5 LPA",
+                        "Testing Assistant - ₹1.8-2.8 LPA",
+                        "Field Service Helper - ₹2-3 LPA"
+                    ]
                 },
                 good: {
-                    path: "Industry Placements & Skill Enhancement",
-                    details: "Your strong academic background opens opportunities in electronics assembly, repair services, or telecommunications. Consider roles like electronics technician, field service engineer, or telecommunications operator. Pursue certifications in embedded systems, IoT, or telecommunications to enhance your career prospects."
+                    path: "Electronics Industry + Skill Development",
+                    higherStudies: [
+                        "Lateral entry to B.Tech ECE",
+                        "Diploma in Consumer Electronics",
+                        "Advanced Communication Systems",
+                        "Industrial Electronics Course"
+                    ],
+                    courses: [
+                        "Basic Electronics Repair",
+                        "Mobile Repairing Course",
+                        "Circuit Design Basics",
+                        "Telecom Fundamentals",
+                        "Electronic Instrumentation"
+                    ],
+                    internships: [
+                        "Electronics Repair Intern",
+                        "Telecom Support Intern",
+                        "Circuit Testing Intern",
+                        "Electronics Assembly Intern"
+                    ],
+                    jobs: [
+                        "Electronics Technician - ₹2.5-4 LPA",
+                        "Telecom Operator - ₹2-3.5 LPA",
+                        "Electronics Assembler - ₹2-3 LPA",
+                        "Field Service Engineer - ₹2.5-4 LPA",
+                        "Testing Technician - ₹2-3 LPA"
+                    ]
                 },
-                average: {
-                    path: "Practical Experience & Entry-Level Positions",
-                    details: "Focus on gaining hands-on experience through internships in electronics repair shops or manufacturing units. Apply for entry-level positions like electronics assembler, repair technician, or technical support. Consider short-term courses in specific areas like mobile repairing, circuit design, or electronic instrumentation."
+                excellent: {
+                    path: "Advanced Electronics + Communication Roles",
+                    higherStudies: [
+                        "B.Tech in Electronics & Communication",
+                        "B.Tech in Telecommunications",
+                        "B.Tech in Embedded Systems",
+                        "Diploma in VLSI Design",
+                        "B.Tech in Internet of Things (IoT)"
+                    ],
+                    courses: [
+                        "Embedded Systems Certification",
+                        "PCB Design Course",
+                        "IoT Development Course",
+                        "Telecommunications Fundamentals",
+                        "VLSI Design Basics",
+                        "Robotics Programming"
+                    ],
+                    internships: [
+                        "Electronics Design Intern",
+                        "Telecom Network Intern",
+                        "Embedded Systems Intern",
+                        "PCB Design Intern",
+                        "IoT Development Intern"
+                    ],
+                    jobs: [
+                        "Electronics Engineer - ₹3-6 LPA",
+                        "Telecom Technician - ₹3-5 LPA",
+                        "Embedded Systems Engineer - ₹4-7 LPA",
+                        "Network Support Engineer - ₹3-5 LPA",
+                        "Electronics Testing Engineer - ₹3-5 LPA"
+                    ]
                 }
             },
             "ELECTRONICS AND ELECTRICAL ENGINEERING": {
-                excellent: {
-                    path: "Higher Studies & Technical Roles",
-                    details: "With your excellent academic record, we recommend pursuing advanced diploma courses or direct engineering entry. You are qualified for technical roles in power distribution, electrical maintenance, or electrical equipment manufacturing. Consider positions like electrical technician, maintenance electrician, or control panel operator."
+                low: {
+                    path: "Electrical Maintenance + Helper Roles",
+                    higherStudies: [
+                        "ITI Electrical Courses",
+                        "Certificate in Electrical Wiring",
+                        "Diploma in Electrical Maintenance",
+                        "Basic Electrical Safety Course"
+                    ],
+                    courses: [
+                        "Basic Electrical Wiring",
+                        "Motor Repair Basics",
+                        "Electrical Safety Training",
+                        "Transformer Maintenance Basics",
+                        "House Wiring Course"
+                    ],
+                    internships: [
+                        "Electrical Wiring Helper",
+                        "Maintenance Trainee",
+                        "Electrical Fitter Assistant",
+                        "Power Distribution Helper"
+                    ],
+                    jobs: [
+                        "Electrical Helper - ₹1.8-2.8 LPA",
+                        "Wiring Assistant - ₹1.5-2.5 LPA",
+                        "Maintenance Helper - ₹2-3 LPA",
+                        "Electrical Fitter Helper - ₹1.8-2.8 LPA"
+                    ]
                 },
                 good: {
-                    path: "Industry Placements & Skill Development",
-                    details: "Your strong performance qualifies you for positions in electrical contracting, power distribution, or industrial maintenance. Consider roles like electrical fitter, wiring technician, or maintenance assistant. Pursue certifications in electrical safety, PLC programming, or solar panel installation to enhance your employability."
+                    path: "Electrical Industry + Technical Roles",
+                    higherStudies: [
+                        "Lateral entry to B.Tech Electrical",
+                        "Diploma in Industrial Electrical",
+                        "Power Distribution Systems",
+                        "Electrical Maintenance Course"
+                    ],
+                    courses: [
+                        "Basic Electrical Wiring",
+                        "Motor Control Systems",
+                        "Electrical Safety Course",
+                        "Transformer Maintenance",
+                        "Basic PLC Programming"
+                    ],
+                    internships: [
+                        "Electrical Wiring Intern",
+                        "Maintenance Trainee",
+                        "Power Distribution Intern",
+                        "Electrical Testing Intern"
+                    ],
+                    jobs: [
+                        "Electrical Technician - ₹2.5-4 LPA",
+                        "Maintenance Electrician - ₹2-3.5 LPA",
+                        "Wiring Technician - ₹2-3 LPA",
+                        "Electrical Fitter - ₹2-3 LPA",
+                        "Power Distribution Assistant - ₹2.5-4 LPA"
+                    ]
                 },
-                average: {
-                    path: "Practical Training & Entry-Level Jobs",
-                    details: "Focus on gaining practical experience through apprenticeships with electricians or electrical contractors. Apply for entry-level positions in electrical shops, maintenance departments, or wiring installations. Consider short-term courses in house wiring, electrical repairs, or electrical drafting to strengthen your skills."
+                excellent: {
+                    path: "Power Systems + Electrical Engineering Roles",
+                    higherStudies: [
+                        "B.Tech in Electrical Engineering",
+                        "B.Tech in Power Systems",
+                        "Diploma in Renewable Energy",
+                        "B.Tech in Instrumentation",
+                        "Advanced Power Electronics"
+                    ],
+                    courses: [
+                        "Electrical Design Certification",
+                        "PLC Programming Course",
+                        "Solar Energy Systems",
+                        "Power System Protection",
+                        "Industrial Automation",
+                        "Electrical Safety Standards"
+                    ],
+                    internships: [
+                        "Electrical Design Intern",
+                        "Power System Intern",
+                        "Renewable Energy Intern",
+                        "Industrial Automation Intern",
+                        "Electrical Maintenance Intern"
+                    ],
+                    jobs: [
+                        "Electrical Engineer - ₹3-6 LPA",
+                        "Power System Technician - ₹3-5 LPA",
+                        "Maintenance Engineer - ₹3-5 LPA",
+                        "Control System Engineer - ₹4-7 LPA",
+                        "Electrical Design Technician - ₹3-5 LPA"
+                    ]
                 }
             },
             "CIVIL ENGINEERING": {
-                excellent: {
-                    path: "Higher Studies & Technical Roles",
-                    details: "Your outstanding academic performance makes you suitable for advanced diploma courses or direct engineering entry. You can pursue roles in construction companies, infrastructure projects, or government departments. Consider positions like site supervisor, junior engineer, or CAD operator in construction firms."
+                low: {
+                    path: "Construction Helper + Field Assistant",
+                    higherStudies: [
+                        "ITI Civil Courses",
+                        "Certificate in Masonry",
+                        "Diploma in Construction Helper",
+                        "Basic Drafting Course"
+                    ],
+                    courses: [
+                        "Construction Safety Basics",
+                        "Basic Measurements Course",
+                        "Material Testing Fundamentals",
+                        "Site Supervision Basics",
+                        "Building Materials Knowledge"
+                    ],
+                    internships: [
+                        "Construction Helper",
+                        "Site Assistant",
+                        "Measurement Trainee",
+                        "Quality Checker Assistant",
+                        "Material Testing Helper"
+                    ],
+                    jobs: [
+                        "Construction Worker - ₹1.8-3 LPA",
+                        "Site Helper - ₹1.5-2.5 LPA",
+                        "Labor Supervisor - ₹2-3 LPA",
+                        "Quality Checker - ₹1.8-2.8 LPA"
+                    ]
                 },
                 good: {
-                    path: "Industry Placements & Skill Enhancement",
-                    details: "With your solid academic record, you can explore opportunities in construction, surveying, or building maintenance. Consider roles like site assistant, surveying technician, or quality checker. Pursue certifications in AutoCAD, building estimation, or construction safety to enhance your career prospects."
+                    path: "Construction Industry + Field Roles",
+                    higherStudies: [
+                        "Lateral entry to B.Tech Civil",
+                        "Diploma in Building Construction",
+                        "Advanced Drafting Course",
+                        "Infrastructure Management"
+                    ],
+                    courses: [
+                        "Basic AutoCAD Civil",
+                        "Construction Safety",
+                        "Building Estimation",
+                        "Surveying Basics",
+                        "Concrete Technology"
+                    ],
+                    internships: [
+                        "Construction Site Intern",
+                        "Drafting Assistant Intern",
+                        "Surveying Assistant Intern",
+                        "Quality Control Intern"
+                    ],
+                    jobs: [
+                        "Site Supervisor - ₹2.5-4 LPA",
+                        "CAD Operator - ₹2-3.5 LPA",
+                        "Surveying Assistant - ₹2-3 LPA",
+                        "Construction Worker - ₹2-3 LPA",
+                        "Quality Inspector - ₹2-3 LPA"
+                    ]
                 },
-                average: {
-                    path: "Practical Experience & Entry-Level Positions",
-                    details: "Focus on gaining hands-on experience through site training or apprenticeships with contractors. Apply for entry-level positions like construction helper, assistant surveyor, or maintenance worker. Consider short-term courses in specific skills like masonry, plumbing, or electrical fitting for construction sites."
+                excellent: {
+                    path: "Construction Management + Engineering Roles",
+                    higherStudies: [
+                        "B.Tech in Civil Engineering",
+                        "Diploma in Construction Management",
+                        "B.Tech in Structural Engineering",
+                        "Advanced Surveying Course",
+                        "Environmental Engineering"
+                    ],
+                    courses: [
+                        "Advanced AutoCAD Civil",
+                        "Structural Design Course",
+                        "Construction Management",
+                        "Surveying Technology",
+                        "Project Management Basics",
+                        "Building Information Modeling (BIM)"
+                    ],
+                    internships: [
+                        "Site Engineering Intern",
+                        "Structural Design Intern",
+                        "Construction Supervision Intern",
+                        "Surveying Intern",
+                        "Project Management Intern"
+                    ],
+                    jobs: [
+                        "Site Engineer - ₹3-6 LPA",
+                        "Structural Designer - ₹3-5 LPA",
+                        "Construction Supervisor - ₹3-5 LPA",
+                        "Surveyor - ₹2.5-4 LPA",
+                        "Quality Control Engineer - ₹3-5 LPA"
+                    ]
                 }
             },
             "ADTF": {
-                excellent: {
-                    path: "Advanced Design Courses & Creative Roles",
-                    details: "Your excellent performance indicates strong potential in design fields. Consider advanced diploma courses in specialized design domains or direct entry to design degrees. You can pursue roles in design studios, advertising agencies, or product design companies as a junior designer or design assistant."
+                low: {
+                    path: "Basic Design + Assistant Roles",
+                    higherStudies: [
+                        "Certificate in Basic Design",
+                        "Diploma in Digital Arts",
+                        "Short-term Design Courses",
+                        "Basic Photography Course"
+                    ],
+                    courses: [
+                        "Basic Photoshop Course",
+                        "Digital Design Fundamentals",
+                        "Social Media Design Basics",
+                        "Basic Video Editing",
+                        "Color Theory Fundamentals"
+                    ],
+                    internships: [
+                        "Design Assistant Intern",
+                        "Social Media Design Helper",
+                        "Print Assistant Intern",
+                        "Photo Editing Trainee"
+                    ],
+                    jobs: [
+                        "Design Assistant - ₹1.8-2.8 LPA",
+                        "Social Media Design Helper - ₹1.5-2.5 LPA",
+                        "Print Assistant - ₹1.8-2.8 LPA",
+                        "Photo Editor - ₹2-3 LPA"
+                    ]
                 },
                 good: {
-                    path: "Design Industry Placements & Skill Development",
-                    details: "With your solid performance, you can explore opportunities in design firms, printing presses, or advertising agencies. Consider roles like graphic designer assistant, layout artist, or visualizer. Build a strong portfolio and pursue certifications in design software like Adobe Creative Suite to enhance your employability."
+                    path: "Design Industry + Creative Roles",
+                    higherStudies: [
+                        "Diploma in Graphic Design",
+                        "Certificate in Digital Arts",
+                        "Web Design Course",
+                        "Multimedia Design Program"
+                    ],
+                    courses: [
+                        "Basic Photoshop Course",
+                        "Illustrator Fundamentals",
+                        "Web Design Basics",
+                        "Social Media Design",
+                        "Basic Video Editing"
+                    ],
+                    internships: [
+                        "Junior Design Intern",
+                        "Social Media Design Intern",
+                        "Print Design Intern",
+                        "Web Design Intern"
+                    ],
+                    jobs: [
+                        "Junior Graphic Designer - ₹2.5-4 LPA",
+                        "Social Media Designer - ₹2-3.5 LPA",
+                        "Print Designer - ₹2-3 LPA",
+                        "Web Design Assistant - ₹2.5-4 LPA",
+                        "Photo Editor - ₹2-3 LPA"
+                    ]
                 },
-                average: {
-                    path: "Practical Training & Entry-Level Design Jobs",
-                    details: "Focus on building a strong portfolio through freelance projects or internships. Apply for entry-level positions in printing companies, design studios, or advertising agencies. Conside
+                excellent: {
+                    path: "Advanced Design + Creative Industry Roles",
+                    higherStudies: [
+                        "Bachelor of Design (B.Des)",
+                        "Bachelor of Fine Arts (BFA)",
+                        "Diploma in Graphic Design",
+                        "Advanced Animation Course",
+                        "Fashion Design Degree"
+                    ],
+                    courses: [
+                        "Adobe Creative Suite Masterclass",
+                        "UI/UX Design Course",
+                        "3D Modeling & Animation",
+                        "Digital Marketing Design",
+                        "Video Editing Course",
+                        "Web Design Fundamentals"
+                    ],
+                    internships: [
+                        "Graphic Design Intern",
+                        "UI/UX Design Intern",
+                        "Animation Intern",
+                        "Digital Marketing Intern",
+                        "Video Editing Intern"
+                    ],
+                    jobs: [
+                        "Graphic Designer - ₹3-6 LPA",
+                        "UI/UX Designer - ₹4-8 LPA",
+                        "Video Editor - ₹3-5 LPA",
+                        "Digital Marketing Designer - ₹3-5 LPA",
+                        "Animator - ₹3-6 LPA"
+                    ]
+                }
+            }
+        };
+
+        // DOM Elements
+        const loginSection = document.getElementById('loginSection');
+        const profileSection = document.getElementById('profileSection');
+        const recommendationSection = document.getElementById('recommendationSection');
+        const loginForm = document.getElementById('loginForm');
+        const errorMessage = document.getElementById('errorMessage');
+
+        // Login form submission
+        loginForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const name = document.getElementById('studentName').value.trim();
+            const regNo = document.getElementById('registerNumber').value.trim();
+            const branch = document.getElementById('branch').value;
+            
+            // Hide error message
+            errorMessage.classList.add('hidden');
+            
+            // Validate inputs
+            if (!name || !regNo || !branch) {
+                showError("Please fill in all fields");
+                return;
+            }
+            
+            // Check if student exists
+            const studentData = studentDatabase[regNo];
+            
+            if (!studentData) {
+                showError("Student not found. Please check your register number.");
+                return;
+            }
+            
+            // Validate credentials
+            if (studentData.name.toUpperCase() !== name.toUpperCase()) {
+                showError("Name doesn't match register number.");
+                return;
+            }
+            
+            if (studentData.branch !== branch) {
+                showError("Branch doesn't match register number.");
+                return;
+            }
+            
+            // Login successful - show profile
+            showProfile(studentData, regNo);
+        });
+
+        function showProfile(studentData, regNo) {
+            // Calculate performance category
+            let performanceCategory;
+            let overallPerformance;
+            let badgeClass;
+            
+            if (studentData.cgpa >= 8.5) {
+                performanceCategory = "excellent";
+                overallPerformance = "Excellent";
+                badgeClass = "excellent";
+            } else if (studentData.cgpa >= 7.0) {
+                performanceCategory = "good";
+                overallPerformance = "Good";
+                badgeClass = "good";
+            } else {
+                performanceCategory = "low";
+                overallPerformance = "Average";
+                badgeClass = "average";
+            }
+            
+            // Update profile display
+            document.getElementById('profileName').textContent = studentData.name;
+            document.getElementById('profileRegNo').textContent = regNo;
+            document.getElementById('profileBranch').textContent = studentData.branch;
+            document.getElementById('profileCGPA').textContent = studentData.cgpa;
+            document.getElementById('profileAttendance').textContent = studentData.attendance + '%';
+            document.getElementById('profileInternal').textContent = studentData.internalScore + '/100';
+            document.getElementById('profilePractical').textContent = studentData.practicalPerformance + '/100';
+            document.getElementById('profileOverall').innerHTML = overallPerformance + 
+                `<span class="performance-badge ${badgeClass}">${overallPerformance}</span>`;
+            
+            // Store current student data
+            window.currentStudent = {
+                ...studentData,
+                performanceCategory: performanceCategory
+            };
+            
+            // Show profile section
+            loginSection.classList.add('hidden');
+            profileSection.classList.remove('hidden');
+        }
+
+        function showError(message) {
+            errorMessage.textContent = message;
+            errorMessage.classList.remove('hidden');
+        }
+
+        // Get Career Advice
+        document.getElementById('getAdviceBtn').addEventListener('click', function() {
+            if (!window.currentStudent) return;
+            
+            const branch = window.currentStudent.branch;
+            const performanceCategory = window.currentStudent.performanceCategory;
+            
+            const recommendation = careerRecommendations[branch]?.[performanceCategory] || 
+                                 careerRecommendations[branch]?.good ||
+                                 careerRecommendations["COMPUTER SCIENCE ENGINEERING"].good;
+            
+            // Populate recommendation lists
+            populateList('higherStudiesList', recommendation.higherStudies);
+            populateList('coursesList', recommendation.courses);
+            populateList('internshipsList', recommendation.internships);
+            populateList('jobsList', recommendation.jobs);
+            
+            document.getElementById('suggestedPath').textContent = recommendation.path;
+            
+            profileSection.classList.add('hidden');
+            recommendationSection.classList.remove('hidden');
+        });
+
+        function populateList(elementId, items) {
+            const listElement = document.getElementById(elementId);
+            listElement.innerHTML = '';
+            items.forEach(item => {
+                const li = document.createElement('li');
+                li.textContent = item;
+                listElement.appendChild(li);
+            });
+        }
+
+        // Back to Profile
+        document.getElementById('backToProfileBtn').addEventListener('click', function() {
+            recommendationSection.classList.add('hidden');
+            profileSection.classList.remove('hidden');
+        });
+
+        // Logout
+        document.getElementById('logoutBtn').addEventListener('click', function() {
+            profileSection.classList.add('hidden');
+            loginSection.classList.remove('hidden');
+            loginForm.reset();
+            window.currentStudent = null;
+        });
+
+        // New Login
+        document.getElementById('newLoginBtn').addEventListener('click', function() {
+            recommendationSection.classList.add('hidden');
+            loginSection.classList.remove('hidden');
+            loginForm.reset();
+            window.currentStudent = null;
+        });
+    </script>
+</body>
+</html>
